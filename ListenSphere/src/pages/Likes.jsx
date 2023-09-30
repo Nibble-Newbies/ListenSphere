@@ -5,9 +5,10 @@ import AuthContext from "../components/authContext";
 import {useSelector} from "react-redux";
 import axios from "axios";
 function Review() {
-  const [data, setData] = useState(false);
+  const [data, setData] = useState([]);
   const {token}= useContext(AuthContext);
   const {user}=useSelector(state=>state.user);
+  const [loading,setLoading]=useState(true)
   let goGetRequests=async (token,id)=>{
     let config = {
       method: "GET",
@@ -36,11 +37,13 @@ function Review() {
               pic:sender.senderUserId.pic,
             }
           })
+          console.log(formattedData);
           setData(formattedData);
           setLoading(false);
         })
         .catch((err) => {
           console.log(err);
+          setLoading(false)
         });
     }
   }, []);
