@@ -262,5 +262,19 @@ app.get("/user/topTracks", validateSpotifyToken, function (req, res) {
     });
 });
 
+
+app.post("/addUsers", async function (req, res) {
+  const { users } = req.body;
+  try {
+    const newUsers = await User.insertMany(users);
+    res.json({ message: "data", data: newUsers });
+  } catch (err) {
+    res.json({ message: "error", error: err });
+  }
+});
+
+
+
+
 console.log("Listening on 8888");
 app.listen(8888);
