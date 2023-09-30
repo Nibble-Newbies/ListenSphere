@@ -1,0 +1,236 @@
+[
+  {
+    "name": "Joe",
+    "socials": { "instagram": "insta_id1", "twitter": "twitter_id1" },
+    "email": "example1@mail.com",
+    "bio": "This is a lengthy bio for Joe. He loves coding and enjoys spending time outdoors.",
+    "similarity": 36
+  },
+  {
+    "name": "Alice",
+    "socials": { "instagram": "insta_id2", "twitter": "twitter_id2" },
+    "email": "example2@mail.com",
+    "bio": "Alice is a passionate artist who finds inspiration in nature and dreams.",
+    "similarity": 11
+  },
+  {
+    "name": "John",
+    "socials": { "instagram": "insta_id3", "twitter": "twitter_id3" },
+    "email": "example3@mail.com",
+    "bio": "John is a foodie who explores different cuisines and shares his culinary adventures.",
+    "similarity": 19
+  },
+  {
+    "name": "Emma",
+    "socials": { "instagram": "emma_insta", "twitter": "emma_twitter" },
+    "email": "emma@email.com",
+    "bio": "Emma is a travel enthusiast who loves exploring new destinations and trying local cuisines.",
+    "similarity": 31
+  },
+  {
+    "name": "Liam",
+    "socials": { "instagram": "liam_insta", "twitter": "liam_twitter" },
+    "email": "liam@email.com",
+    "bio": "Liam is a technology geek who enjoys building robots and experimenting with AI.",
+    "similarity": 1
+  },
+  {
+    "name": "Olivia",
+    "socials": { "instagram": "olivia_insta", "twitter": "olivia_twitter" },
+    "email": "olivia@email.com",
+    "bio": "Olivia is a fitness enthusiast who believes in leading a healthy and active lifestyle.",
+    "similarity": 34
+  },
+  {
+    "name": "Noah",
+    "socials": { "instagram": "noah_insta", "twitter": "noah_twitter" },
+    "email": "noah@email.com",
+    "bio": "Noah is a musician who plays the guitar and writes his own songs.",
+    "similarity": 10
+  },
+  {
+    "name": "Ava",
+    "socials": { "instagram": "ava_insta", "twitter": "ava_twitter" },
+    "email": "ava@email.com",
+    "bio": "Ava is an aspiring chef who dreams of opening her own restaurant one day.",
+    "similarity": 35
+  },
+  {
+    "name": "William",
+    "socials": { "instagram": "william_insta", "twitter": "william_twitter" },
+    "email": "william@email.com",
+    "bio": "William is an avid reader who can spend hours lost in the world of books.",
+    "similarity": 28
+  },
+  {
+    "name": "Sophia",
+    "socials": { "instagram": "sophia_insta", "twitter": "sophia_twitter" },
+    "email": "sophia@email.com",
+    "bio": "Sophia is a nature lover who enjoys hiking and camping in the great outdoors.",
+    "similarity": 22
+  },
+  {
+    "name": "James",
+    "socials": { "instagram": "james_insta", "twitter": "james_twitter" },
+    "email": "james@email.com",
+    "bio": "James is a car enthusiast who loves working on classic cars in his spare time.",
+    "similarity": 22
+  },
+  {
+    "name": "Oliver",
+    "socials": { "instagram": "oliver_insta", "twitter": "oliver_twitter" },
+    "email": "oliver@email.com",
+    "bio": "Oliver is a film buff who enjoys analyzing and critiquing movies.",
+    "similarity": 14
+  },
+  {
+    "name": "Isabella",
+    "socials": { "instagram": "isabella_insta", "twitter": "isabella_twitter" },
+    "email": "isabella@email.com",
+    "bio": "Isabella is a fashionista who keeps up with the latest trends and styles.",
+    "similarity": 24
+  },
+  {
+    "name": "Sophie",
+    "socials": { "instagram": "sophie_insta", "twitter": "sophie_twitter" },
+    "email": "sophie@email.com",
+    "bio": "Sophie is a software developer who enjoys building web applications and solving complex coding challenges.",
+    "similarity": 26
+  },
+  {
+    "name": "Mason",
+    "socials": { "instagram": "mason_insta", "twitter": "mason_twitter" },
+    "email": "mason@email.com",
+    "bio": "Mason is a sports enthusiast who plays basketball and coaches a youth soccer team in his free time.",
+    "similarity": 6
+  },
+  {
+    "name": "Olivia",
+    "socials": { "instagram": "olivia_insta", "twitter": "olivia_twitter" },
+    "email": "olivia@email.com",
+    "bio": "Olivia is a wildlife photographer who travels to remote locations to capture the beauty of nature and wildlife.",
+    "similarity": 26
+  },
+  {
+    "name": "Liam",
+    "socials": { "instagram": "liam_insta", "twitter": "liam_twitter" },
+    "email": "liam@email.com",
+    "bio": "Liam is a food blogger who reviews restaurants and shares delicious recipes on his blog.",
+    "similarity": 32
+  },
+  {
+    "name": "Ava",
+    "socials": { "instagram": "ava_insta", "twitter": "ava_twitter" },
+    "email": "ava@email.com",
+    "bio": "Ava is an environmental activist who advocates for sustainable living and reducing plastic waste.",
+    "similarity": 12
+  },
+  {
+    "name": "Noah",
+    "socials": { "instagram": "noah_insta", "twitter": "noah_twitter" },
+    "email": "noah@email.com",
+    "bio": "Noah is a history buff who loves visiting museums and exploring ancient civilizations.",
+    "similarity": 22
+  },
+  {
+    "name": "Emma",
+    "socials": { "instagram": "emma_insta", "twitter": "emma_twitter" },
+    "email": "emma@email.com",
+    "bio": "Emma is an aspiring writer who spends her evenings penning down stories and poems.",
+    "similarity": 33
+  },
+  {
+    "name": "Jackson",
+    "socials": { "instagram": "jackson_insta", "twitter": "jackson_twitter" },
+    "email": "jackson@email.com",
+    "bio": "Jackson is a tech entrepreneur who founded a successful startup in the fintech industry.",
+    "similarity": 22
+  },
+  {
+    "name": "Charlotte",
+    "socials": {
+      "instagram": "charlotte_insta",
+      "twitter": "charlotte_twitter"
+    },
+    "email": "charlotte@email.com",
+    "bio": "Charlotte is a yoga instructor who helps people find inner peace and balance through yoga practice.",
+    "similarity": 1
+  },
+  {
+    "name": "Liam",
+    "socials": { "instagram": "liam_insta", "twitter": "liam_twitter" },
+    "email": "liam2@email.com",
+    "bio": "Liam is a wildlife conservationist who dedicates his life to protecting endangered species.",
+    "similarity": 39
+  },
+  {
+    "name": "Ella",
+    "socials": { "instagram": "ella_insta", "twitter": "ella_twitter" },
+    "email": "ella@email.com",
+    "bio": "Ella is an art historian who specializes in Renaissance art and enjoys visiting art galleries around the world.",
+    "similarity": 34
+  },
+  {
+    "name": "Mason",
+    "socials": { "instagram": "mason_insta", "twitter": "mason_twitter" },
+    "email": "mason@email.com",
+    "bio": "Mason is a professional surfer who competes in international surf championships and advocates for ocean conservation.",
+    "similarity": 19
+  },
+  {
+    "name": "Liam",
+    "socials": { "instagram": "liam_insta", "twitter": "liam_twitter" },
+    "email": "liam@email.com",
+    "bio": "Liam is an astronaut who has been on multiple space missions and conducts research on the International Space Station.",
+    "similarity": 19
+  },
+  {
+    "name": "Olivia",
+    "socials": { "instagram": "olivia_insta", "twitter": "olivia_twitter" },
+    "email": "olivia@email.com",
+    "bio": "Olivia is a marine biologist who studies coral reefs and works to protect marine ecosystems from pollution.",
+    "similarity": 16
+  },
+  {
+    "name": "Aiden",
+    "socials": { "instagram": "aiden_insta", "twitter": "aiden_twitter" },
+    "email": "aiden@email.com",
+    "bio": "Aiden is a fashion designer known for creating avant-garde clothing designs that push the boundaries of fashion.",
+    "similarity": 39
+  },
+  {
+    "name": "Sophia",
+    "socials": { "instagram": "sophia_insta", "twitter": "sophia_twitter" },
+    "email": "sophia@email.com",
+    "bio": "Sophia is a professional dancer who performs with a prestigious ballet company and teaches dance to aspiring artists.",
+    "similarity": 39
+  },
+  {
+    "name": "Lucas",
+    "socials": { "instagram": "lucas_insta", "twitter": "lucas_twitter" },
+    "email": "lucas@email.com",
+    "bio": "Lucas is a world traveler who documents his adventures and cultural experiences on his travel blog.",
+    "similarity": 35
+  },
+  {
+    "name": "Harper",
+    "socials": { "instagram": "harper_insta", "twitter": "harper_twitter" },
+    "email": "harper@email.com",
+    "bio": "Harper is a wildlife photographer who captures stunning images of endangered species to raise awareness.",
+    "similarity": 3
+  },
+  {
+    "name": "Logan",
+    "socials": { "instagram": "logan_insta", "twitter": "logan_twitter" },
+    "email": "logan@email.com",
+    "bio": "Logan is an archaeologist who excavates ancient ruins and uncovers the mysteries of past civilizations.",
+    "similarity": 33
+  },
+  {
+    "name": "Avery",
+    "socials": { "instagram": "avery_insta", "twitter": "avery_twitter" },
+    "email": "avery@email.com",
+    "bio": "Avery is a tech blogger who reviews the latest gadgets and provides in-depth tech tutorials.",
+    "similarity": 16
+  }
+]
