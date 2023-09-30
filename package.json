@@ -6,8 +6,8 @@
   "scripts": {
     "start": "concurrently \"cd ListenSphere && npm run dev\" \"cd ListenSphereServer && npm run start\""
   },
-  
   "dependencies": {
-    "concurrently": "^8.2.1"
+    "concurrently": "^8.2.1",
+    "node-cron": "^3.0.2"
   }
 }

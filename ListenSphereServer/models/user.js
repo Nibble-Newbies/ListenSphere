@@ -16,7 +16,6 @@ const userSchema= mongoose.Schema({
     },
     email:{
         type:String,
-        required:true
     },
     bio:{
         type:String,
@@ -24,6 +23,10 @@ const userSchema= mongoose.Schema({
     pic:{
         type:String,
     },
+    friends:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'users'
+    }],
 },{
     timestamps:true
 });

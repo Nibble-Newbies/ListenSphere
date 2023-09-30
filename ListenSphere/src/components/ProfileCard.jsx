@@ -4,6 +4,9 @@ import { FaXTwitter } from "react-icons/fa6";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiSolidLike } from "react-icons/bi";
 import { BiSolidPencil } from "react-icons/bi";
+import { useContext } from "react";
+import axios from "axios";
+import AuthContext from "./authContext";
 
 function Socials({ insta, twitter }) {
   if (!insta && !twitter) return <></>;
@@ -12,7 +15,8 @@ function Socials({ insta, twitter }) {
     <div className="flex flex-wrap gap-2">
       <a
         href={"https://www.instagram.com/" + insta}
-        className="flex items-center gap-1 p-1 border-2 border-black bg-button-green hover:bg-button-green-dark rounded-lg break-all" target="blank"
+        className="flex items-center gap-1 p-1 border-2 border-black bg-button-green hover:bg-button-green-dark rounded-lg break-all"
+        target="blank"
       >
         <div>
           <FaInstagram className="text-white  bg-black p-1 text-2xl rounded-lg block" />
@@ -21,7 +25,8 @@ function Socials({ insta, twitter }) {
       </a>
       <a
         href={"https://www.twitter.com/" + twitter}
-        className="flex items-center gap-1 p-1 border-2 border-black bg-button-green hover:bg-button-green-dark rounded-lg" target="blank"
+        className="flex items-center gap-1 p-1 border-2 border-black bg-button-green hover:bg-button-green-dark rounded-lg"
+        target="blank"
       >
         <div>
           <FaXTwitter className="text-white  bg-black p-1 text-2xl rounded-lg block" />
@@ -32,13 +37,43 @@ function Socials({ insta, twitter }) {
   );
 }
 
-function Reactions() {
+function Reactions({setUsers,id,userId}) {
+  const {token}=useContext(AuthContext);
+  const handleClose=()=>{
+    setUsers((users)=>{
+      let newUsers=users.filter(user=>user._id!==id);
+      return newUsers; 
+    })
+  }
+  const handleSendRequest=async ()=>{
+    async function sendFriendRequest(token) {
+      let config = {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      };
+      // use axios to get top tracks
+      let response = await axios.get(
+        `http://localhost:8888/sendFriendRequest/${userId}/${id}`,
+        config
+      );
+      return response.data;
+    }
+
+    await sendFriendRequest(token);
+
+    setUsers((users)=>{
+      let newUsers=users.filter(user=>user._id!==id);
+      return newUsers; 
+    })
+  }
   return (
     <div className="flex gap-32 md:gap-44 absolute -bottom-5">
-      <button>
+      <button onClick={handleClose} >
         <AiOutlineClose className="text-white hover:text-cross-red bg-black text-4xl p-1 rounded-full" />
       </button>
-      <button>
+      <button onClick={handleSendRequest}>
         <BiSolidLike className="text-white hover:text-like-blue bg-black text-4xl p-1 rounded-full" />
       </button>
     </div>
@@ -54,8 +89,7 @@ function EditButton() {
   );
 }
 
-function ProfileCard({ tab = "userProfile", data }) {
-
+function ProfileCard({ tab = "userProfile", data ,setUsers,id,userId}) {
 
   let socials = false,
     reactions = false,
@@ -85,7 +119,9 @@ function ProfileCard({ tab = "userProfile", data }) {
         />
       </div>
       <div className="flex flex-col flex-grow items-center sm:items-start gap-2">
-        <h1 className="font-bold">{data?.name}</h1>
+        <h1 className="font-bold">
+          {data?.name} {data?.score ? <>| {data?.score}</> : null}
+        </h1>
         <p className="w-full bg-white p-1 rounded-lg">{data?.bio}</p>
         {socials === true && (
           <Socials
@@ -94,10 +130,12 @@ function ProfileCard({ tab = "userProfile", data }) {
           />
         )}
       </div>
-      {reactions === true && <Reactions />}
+      {reactions === true && <Reactions setUsers={setUsers} id={id} userId={userId}/>}
       {editButton === true && <EditButton />}
     </div>
   );
 }
+
+
 
 export default ProfileCard;

@@ -12,6 +12,7 @@ function Profile() {
   const { token } = useContext(AuthContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  console.log(token);
   const [loading, setLoading] = useState(true);
   const { user } = useSelector((state) => state.user);
   const { track } = useSelector((state) => state.track);
@@ -64,11 +65,14 @@ function Profile() {
     }
   }, [token]);
   console.log(user);
-  if(!track){
-    return loading && (
-      <div className="flex items-center justify-center h-96">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-black"></div>
-      </div>)
+  if (!track) {
+    return (
+      loading && (
+        <div className="flex items-center justify-center h-96">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-black"></div>
+        </div>
+      )
+    );
   }
 
   return (
