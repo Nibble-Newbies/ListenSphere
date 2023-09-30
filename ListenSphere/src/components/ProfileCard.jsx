@@ -144,9 +144,9 @@ function EditButton() {
 
 function ChatButton() {
   return (
-    <div className="flex gap-32 md:gap-44 absolute -bottom-4 right-5">
+    <div className="flex gap-32 md:gap-44 absolute -bottom-5 right-5">
       <Link to="/chat">
-        <BsFillChatRightFill className="text-white hover:text-nav-yellow bg-black text-xl rounded-full" />
+        <BsFillChatRightFill className="text-white hover:text-nav-yellow bg-black text-4xl p-2 rounded-lg" />
       </Link>
     </div>
   );
