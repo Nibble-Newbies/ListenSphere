@@ -25,7 +25,6 @@ function App() {
     if (hashParams.access_token && hashParams.refresh_token) {
       // Set the tokens in state or wherever you need them
       login(hashParams.access_token);
-      console.log(hashParams.user_exist);
       // Clear the URL fragments to avoid showing sensitive information
       window.history.pushState({}, document.title, window.location.pathname);
       if(hashParams.error){

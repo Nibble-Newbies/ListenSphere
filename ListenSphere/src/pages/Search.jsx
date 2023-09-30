@@ -26,7 +26,6 @@ function Search() {
   }, []);
 
   const handleClose=(id)=>{
-    console.log("I ran");
     let newUsers=users.filter(user=>user._id!==id);
     setUsers(newUsers);
   }

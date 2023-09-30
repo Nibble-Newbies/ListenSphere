@@ -12,7 +12,6 @@ function Profile() {
   const { token } = useContext(AuthContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(token);
   const [loading, setLoading] = useState(true);
   const { user } = useSelector((state) => state.user);
   const { track } = useSelector((state) => state.track);
@@ -64,7 +63,6 @@ function Profile() {
       }
     }
   }, [token]);
-  console.log(user);
   if (!track) {
     return (
       loading && (

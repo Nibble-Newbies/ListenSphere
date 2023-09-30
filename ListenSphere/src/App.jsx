@@ -14,6 +14,7 @@ import ProtectedRoute from "./utils/protectedRoute";
 import ArtistPage from "./pages/ArtistPage";
 import AuthContext from "./components/authContext";
 import { useState } from "react";
+import ChatApp from "./pages/chat";
 
 function App() {
   const [token, setToken] = useState("");
@@ -35,6 +36,7 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/likes" element={<Likes />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/chat" element={<ChatApp/>}/>
           <Route element={<ProtectedRoute />}>
             <Route path="/edit-profile" element={<Edit />} exact />
           </Route>

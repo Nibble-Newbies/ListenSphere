@@ -284,31 +284,33 @@ app.post("/addSongToUser/:id", async function (req, res) {
   let id = req.params.id;
   try {
     // data contains song id fetch data of each song and add to user
-    let songDatas= [];
-    songDatas = await Promise.all(data.map(async (songId) => {
-      let url = `https://api.spotify.com/v1/tracks/${songId}`;
-      const options = {
-        headers: {
-          Authorization:
-            "Bearer " + "BQBmV1RYW6yyolcX63ef4efA1gF59U38NpH7Bpf_gn6nQ1zcWSuM-CogsKqCFuOjUbPYcK8Nb5nnMdvWrHrKoji34gbkyWKDoscCmhtfUIcoVl0YjO3nFBhhBR09p-HT8Nix9axvpr8BaTmvVaAK1icSTbOkrCvo6gsxAwD1Th-6kzChALg2MjQISby5OqyjA6k14cCeXNQ8q6_AUIvVPuTK_Z5xUOrWj5cYWOxdnvYc6b47qySxdo0YlonOZzgJCscuSsh6QOLtzpYii7lq9Jz5",
-        },
-      };
-      let songData = await axios.get(url, {headers: options.headers});
-      return songData.data;
-    }
-    ));
-    console.log("songDatas",songDatas);
-    
-    songDatas=songDatas.map((data)=>{
+    let songDatas = [];
+    songDatas = await Promise.all(
+      data.map(async (songId) => {
+        let url = `https://api.spotify.com/v1/tracks/${songId}`;
+        const options = {
+          headers: {
+            Authorization:
+              "Bearer " +
+              "BQBmV1RYW6yyolcX63ef4efA1gF59U38NpH7Bpf_gn6nQ1zcWSuM-CogsKqCFuOjUbPYcK8Nb5nnMdvWrHrKoji34gbkyWKDoscCmhtfUIcoVl0YjO3nFBhhBR09p-HT8Nix9axvpr8BaTmvVaAK1icSTbOkrCvo6gsxAwD1Th-6kzChALg2MjQISby5OqyjA6k14cCeXNQ8q6_AUIvVPuTK_Z5xUOrWj5cYWOxdnvYc6b47qySxdo0YlonOZzgJCscuSsh6QOLtzpYii7lq9Jz5",
+          },
+        };
+        let songData = await axios.get(url, { headers: options.headers });
+        return songData.data;
+      })
+    );
+    console.log("songDatas", songDatas);
+
+    songDatas = songDatas.map((data) => {
       return {
         id: data.id,
         name: data.name,
         artist: data.artists[0].name,
         image: data.album.images[0].url,
         preview: data.preview_url,
-        ownedBy: id
-      }
-    })
+        ownedBy: id,
+      };
+    });
 
     const newSong = await Song.insertMany(songDatas);
     res.json({ message: "data", data: newSong });
@@ -317,66 +319,116 @@ app.post("/addSongToUser/:id", async function (req, res) {
   }
 });
 
-
-
-
 app.get("/getRanking/:id", async function (req, res) {
   let id = req.params.id;
   try {
     let getAllUsers = await User.find();
     getAllUsers = getAllUsers.filter((user) => user._id != id);
-    let requestFriends= await FriendRequest.find({senderUserId:id});    
-    let requestFriendIds=requestFriends.map((fr)=>{
+    let requestFriends = await FriendRequest.find({ senderUserId: id });
+    let requestFriendIds = requestFriends.map((fr) => {
       return fr.receiverUserId.toString();
-    })
+    });
 
-    getAllUsers=getAllUsers.map((user)=>{
+    getAllUsers = getAllUsers.map((user) => {
       return {
         ...user._doc,
-        score:Math.floor(Math.random() * 40 ) + 1
-      }
-    })
-    getAllUsers=getAllUsers.filter((user)=>{
+        score: Math.floor(Math.random() * 40) + 1,
+      };
+    });
+    getAllUsers = getAllUsers.filter((user) => {
       console.log(user._id);
       return !requestFriendIds.includes(user._id.toString());
-    })
+    });
     res.json({ message: "data", data: getAllUsers });
   } catch (err) {
     res.json({ message: "error", error: err });
   }
 });
 
+app.get(
+  "/sendFriendRequest/:senderId/:receiverId",
+  validateSpotifyToken,
+  async function (req, res) {
+    const { senderId, receiverId } = req.params;
+    try {
+      const fr = new FriendRequest({
+        senderUserId: senderId,
+        receiverUserId: receiverId,
+        status: "pending",
+      });
+      let newFriendRequest = await fr.save();
 
-
-app.get("/sendFriendRequest/:senderId/:receiverId",validateSpotifyToken, async function (req, res) {
-  const {senderId,receiverId}=req.params;
-  try{  
-    const fr = new FriendRequest({
-      senderUserId: senderId,
-      receiverUserId: receiverId,
-      status: 'pending'
-    });
-    let newFriendRequest=await fr.save();
-
-    console.log("newFriendRequest",newFriendRequest);
-    res.json({ message: "data", data: newFriendRequest });
-  }catch(err){
-    console.log(err);
-    res.json({ message: "error", error: err });
+      console.log("newFriendRequest", newFriendRequest);
+      res.json({ message: "data", data: newFriendRequest });
+    } catch (err) {
+      console.log(err);
+      res.json({ message: "error", error: err });
+    }
   }
-});
+);
 
-app.get("/getRequests/:id",validateSpotifyToken ,async function (req, res) {
+app.get("/getRequests/:id", validateSpotifyToken, async function (req, res) {
   let id = req.params.id;
   try {
-    let getAllRequests = await FriendRequest.find({receiverUserId:id,status:'pending'}).populate('senderUserId');   
+    let getAllRequests = await FriendRequest.find({
+      receiverUserId: id,
+      status: "pending",
+    }).populate("senderUserId");
+    console.log("getAllRequests", getAllRequests);
     res.json({ message: "data", data: getAllRequests });
   } catch (err) {
     res.json({ message: "error", error: err });
   }
 });
-  
 
+app.get(
+  "/acceptFriendRequest/:id",
+  validateSpotifyToken,
+  async function (req, res) {
+    let id = req.params.id;
+    try {
+      let getAllRequests = await FriendRequest.findByIdAndUpdate(
+        id,
+        { status: "accepted" },
+        { new: true }
+      );
+      res.json({ message: "data", data: getAllRequests });
+    } catch (err) {
+      res.json({ message: "error", error: err });
+    }
+  }
+);
+
+app.get(
+  "/rejectFriendRequest/:id",
+  validateSpotifyToken,
+  async function (req, res) {
+    let id = req.params.id;
+    try {
+      let getAllRequests = await FriendRequest.findByIdAndUpdate(
+        id,
+        { status: "reject" },
+        { new: true }
+      );
+      res.json({ message: "data", data: getAllRequests });
+    } catch (err) {
+      res.json({ message: "error", error: err });
+    }
+  }
+);
+
+app.get("/getFriends/:id", validateSpotifyToken, async function (req, res) {
+  let id = req.params.id;
+  try {
+    let getAllRequests = await FriendRequest.find({
+      receiverUserId: id,
+      status: "accepted",
+    }).populate("senderUserId");
+    res.json({ message: "data", data: getAllRequests });
+  } catch (err) {
+    res.json({ message: "error", error: err });
+  }
+});
 
 console.log("Listening on 8888");
 app.listen(8888);

@@ -64,7 +64,6 @@ function Form() {
     },
   });
 
-  console.log(user);
   useEffect(() => {
     if(user){
       setInputs({

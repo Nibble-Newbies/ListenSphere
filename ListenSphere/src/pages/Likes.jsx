@@ -29,15 +29,16 @@ function Review() {
       let id = user._id;
       goGetRequests(token, id)
         .then((data) => {
+
           let formattedData = data?.data?.map((sender)=>{
             return {
               name:sender.senderUserId.name,
-              id:sender.senderUserId._id,
+              sender_id:sender.senderUserId._id,
+              connect_id:sender._id,
               bio:sender.senderUserId.bio,
               pic:sender.senderUserId.pic,
             }
           })
-          console.log(formattedData);
           setData(formattedData);
           setLoading(false);
         })
@@ -46,7 +47,7 @@ function Review() {
           setLoading(false)
         });
     }
-  }, []);
+  }, [token,user?._id]);
 
   return (
     <div className="w-full flex flex-col items-center p-4 pt-0">
@@ -56,7 +57,7 @@ function Review() {
         <>
           {
             data?.map((user)=>{
-              return <ProfileCard tab="review" data={user}></ProfileCard>
+              return <ProfileCard tab="review" setData={setData} data={user}></ProfileCard>
             })
           }
         </>
@@ -65,19 +66,63 @@ function Review() {
   );
 }
 
-function Connect({data}) {
+function Connect() {
+  const [data, setData] = useState([]);
+  const {token}= useContext(AuthContext)
+  const {user}= useSelector(state=>state.user)
+  
+  let goGetConnections=async (token,id)=>{
+    let config = {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
+    // use axios to get top tracks
+    let response = await axios.get(
+      `http://localhost:8888/getFriends/${user._id}`,
+      config
+    );
+    return response.data;      
+  }
+
+  useEffect(() => {
+    if (token) {
+      let id = user._id;
+      goGetConnections(token, id)
+        .then((data) => {
+          let formattedData = data?.data?.map((connection)=>{
+            return {
+              name:connection.senderUserId?.name,
+              id:connection._id,
+              bio:connection?.senderUserId?.bio,
+              socials:{
+                instagram:connection?.senderUserId?.socials?.instagram,
+                twitter:connection?.senderUserId?.socials?.twitter
+              },
+              pic:connection?.senderUserId?.pic,
+            }
+          })
+          setData(formattedData);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
+
+
   return (
     <div className="w-full flex flex-col items-center p-4 pt-0">
       {!data ? (
         <p className="text-2xl">No Connections Yet</p>
       ) : (
         <>
-          <ProfileCard tab="connect"></ProfileCard>
-          <ProfileCard tab="connect"></ProfileCard>
-          <ProfileCard tab="connect"></ProfileCard>
-          <ProfileCard tab="connect"></ProfileCard>
-          <ProfileCard tab="connect"></ProfileCard>
-          <ProfileCard tab="connect"></ProfileCard>
+          {
+            data?.map((val,index)=>{
+              return <ProfileCard tab="connect" key={index} data={val}></ProfileCard>
+            })
+          }
         </>
       )}
     </div>

@@ -21,7 +21,6 @@ function Login() {
 
         setToken(token);
 
-        console.log(token);
 
         if (!token) {
           return; // Don't make the API call without a token
