@@ -11,22 +11,22 @@ function Socials({ insta, twitter }) {
   return (
     <div className="flex flex-wrap gap-2">
       <a
-        href={insta}
-        className="flex items-center gap-1 p-1 border-2 border-black bg-button-green hover:bg-button-green-dark rounded-lg break-all"
+        href={"https://www.instagram.com/" + insta}
+        className="flex items-center gap-1 p-1 border-2 border-black bg-button-green hover:bg-button-green-dark rounded-lg break-all" target="blank"
       >
         <div>
           <FaInstagram className="text-white  bg-black p-1 text-2xl rounded-lg block" />
         </div>
-        <p>insta_id</p>
+        <p>{insta}</p>
       </a>
       <a
-        href={twitter}
-        className="flex items-center gap-1 p-1 border-2 border-black bg-button-green hover:bg-button-green-dark rounded-lg"
+        href={"https://www.twitter.com/" + twitter}
+        className="flex items-center gap-1 p-1 border-2 border-black bg-button-green hover:bg-button-green-dark rounded-lg" target="blank"
       >
         <div>
           <FaXTwitter className="text-white  bg-black p-1 text-2xl rounded-lg block" />
         </div>
-        <p>twitter_id</p>
+        <p>{twitter}</p>
       </a>
     </div>
   );

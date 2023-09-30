@@ -83,8 +83,25 @@ function Form() {
 
   const handleChange = (event) => {
     const name = event.target.name;
-    const value = event.target.value;
+    const value = (name === "instagram" || name === "twitter" ? extractUsername(event.target.value) : event.target.value) ;
     setInputs((values) => ({ ...values, [name]: value }));
+  };
+
+  // Function to extract the username from various input formats
+  const extractUsername = (inputValue) => {
+    // Check if the input value is a full Twitter or Instagram URL
+    if (inputValue.includes('twitter.com') || inputValue.includes('instagram.com') ) {
+      const urlParts = inputValue.split('/');
+      const usernamePart = (urlParts[urlParts.length - 1] === "" ? urlParts[urlParts.length - 2] : urlParts[urlParts.length - 1]);
+
+      return usernamePart;
+    }
+
+    if (inputValue.startsWith("@")) {
+      return inputValue.substring(1);
+    }
+
+    return inputValue;
   };
 
 
