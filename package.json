@@ -1,13 +1,13 @@
 {
-  "name": "ListenSphere",
+  "name": "listensphere",
   "version": "1.0.0",
   "description": "concurrently",
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"cd ListenSphere && npm run dev\" \"cd ListenSphereServer && npm run start\""
   },
+  
   "dependencies": {
-    "concurrently": "^8.2.1",
-    "node-cron": "^3.0.2"
+    "concurrently": "^8.2.1"
   }
 }

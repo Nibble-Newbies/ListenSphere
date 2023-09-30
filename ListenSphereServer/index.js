@@ -336,8 +336,6 @@ app.get("/getRanking/:id", async function (req, res) {
         score:Math.floor(Math.random() * 40 ) + 1
       }
     })
-
-    console.log(requestFriendIds);
     getAllUsers=getAllUsers.filter((user)=>{
       console.log(user._id);
       return !requestFriendIds.includes(user._id.toString());
@@ -368,6 +366,16 @@ app.get("/sendFriendRequest/:senderId/:receiverId",validateSpotifyToken, async f
   }
 });
 
+app.get("/getRequests/:id",validateSpotifyToken ,async function (req, res) {
+  let id = req.params.id;
+  try {
+    let getAllRequests = await FriendRequest.find({receiverUserId:id,status:'pending'}).populate('senderUserId');   
+    res.json({ message: "data", data: getAllRequests });
+  } catch (err) {
+    res.json({ message: "error", error: err });
+  }
+});
+  
 
 
 console.log("Listening on 8888");

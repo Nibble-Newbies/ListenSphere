@@ -69,7 +69,7 @@ function Reactions({setUsers,id,userId}) {
     })
   }
   return (
-    <div className="flex gap-32 md:gap-44 absolute -bottom-5">
+    <div className="flex gap-32 md:gap-44 absolute -bottom-5 left-[50%] -translate-x-[50%]">
       <button onClick={handleClose} >
         <AiOutlineClose className="text-white hover:text-cross-red bg-black text-4xl p-1 rounded-full" />
       </button>
@@ -106,7 +106,7 @@ function ProfileCard({ tab = "userProfile", data ,setUsers,id,userId}) {
     socials = true;
     cardPb = "pb-2";
   }
-
+  
   return (
     <div
       className={`flex flex-wrap  gap-2 p-2 w-[90vw] sm:max-w-[38rem] mb-6 ${cardPb} ${cardBg} border-4 border-black rounded-xl relative`}
@@ -118,11 +118,11 @@ function ProfileCard({ tab = "userProfile", data ,setUsers,id,userId}) {
           className="w-28 h-28 border-4 border-black rounded-full"
         />
       </div>
-      <div className="flex flex-col flex-grow items-center sm:items-start gap-2">
+      <div className="flex flex-col  w-full sm:w-[29rem] items-center sm:items-start gap-2">
         <h1 className="font-bold">
           {data?.name} {data?.score ? <>| {data?.score}</> : null}
         </h1>
-        <p className="w-full bg-white p-1 rounded-lg">{data?.bio}</p>
+        <p className="w-full bg-white p-1 rounded-lg " style={{minHeight:"30px"}}>{data?.bio}</p>
         {socials === true && (
           <Socials
             insta={data?.socials?.instagram}

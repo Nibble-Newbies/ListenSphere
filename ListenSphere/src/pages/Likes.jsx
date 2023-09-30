@@ -1,20 +1,61 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Navigation from "../components/Navigation";
 import ProfileCard from "../components/ProfileCard";
+import AuthContext from "../components/authContext";
+import {useSelector} from "react-redux";
+import axios from "axios";
+function Review() {
+  const [data, setData] = useState(false);
+  const {token}= useContext(AuthContext);
+  const {user}=useSelector(state=>state.user);
+  let goGetRequests=async (token,id)=>{
+    let config = {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
+    // use axios to get top tracks
+    let response = await axios.get(
+      `http://localhost:8888/getRequests/${id}`,
+      config
+    );
+    return response.data;
+  }
 
-function Review({ data }) {
+  useEffect(() => {
+    if (token && user) {
+      let id = user._id;
+      goGetRequests(token, id)
+        .then((data) => {
+          let formattedData = data?.data?.map((sender)=>{
+            return {
+              name:sender.senderUserId.name,
+              id:sender.senderUserId._id,
+              bio:sender.senderUserId.bio,
+              pic:sender.senderUserId.pic,
+            }
+          })
+          setData(formattedData);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
+
   return (
     <div className="w-full flex flex-col items-center p-4 pt-0">
-      {!data ? (
+      {data.length===0 ? (
         <p className="text-2xl">No Reviews Yet</p>
       ) : (
         <>
-          <ProfileCard tab="review"></ProfileCard>
-          <ProfileCard tab="review"></ProfileCard>
-          <ProfileCard tab="review"></ProfileCard>
-          <ProfileCard tab="review"></ProfileCard>
-          <ProfileCard tab="review"></ProfileCard>
-          <ProfileCard tab="review"></ProfileCard>
+          {
+            data?.map((user)=>{
+              return <ProfileCard tab="review" data={user}></ProfileCard>
+            })
+          }
         </>
       )}
     </div>
