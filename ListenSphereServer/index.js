@@ -1,4 +1,5 @@
 import express from "express";
+import { createServer } from 'http';
 import dotenv from "dotenv";
 import appRouter from "./app/index.js";
 import cors from "cors";
@@ -12,6 +13,11 @@ import { User } from "./models/user.js";
 import { Song } from "./models/song.js";
 import cron from "node-cron";
 import { FriendRequest } from "./models/friendRequest.js";
+import { Server } from "socket.io";
+
+
+
+
 
 cron.schedule("*/1 * * * *", async () => {
   console.log("running a task every minute");
@@ -25,6 +31,35 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use("/api", appRouter);
 app.use(cors()).use(cookieParser());
+const server = createServer(app);
+
+const io= new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"]
+  }
+});
+
+
+io.on('connection', (socket) => {
+  console.log(`User connected ${socket.id}`);
+
+  
+  // handle send message event and send the message to all users except the one who sent it
+  socket.on('send-message', (data) => {
+    console.log(data);
+    socket.broadcast.emit('receive-message', data);
+  });
+  
+  
+  
+  socket.on('disconnect', () => {
+    console.log(`User disconnected ${socket.id}`);
+  });
+
+  // We can write our socket event listeners in here...
+});
+
 let client_id = process.env.CLIENT_ID;
 let client_secret = process.env.CLIENT_SECRET;
 let redirect_uri = "http://localhost:8888/callback";
@@ -419,8 +454,10 @@ app.get("/getFriends/:id", validateSpotifyToken, async function (req, res) {
   let id = req.params.id;
   try {
     let getAllRequests = await FriendRequest.find({
-      receiverUserId: id,
-      status: "accepted",
+      $or: [
+        { receiverUserId: id, status: "accepted" },
+        { senderUserId: id, status: "accepted" }
+      ]
     }).populate("senderUserId");
     res.json({ message: "data", data: getAllRequests });
   } catch (err) {
@@ -429,4 +466,4 @@ app.get("/getFriends/:id", validateSpotifyToken, async function (req, res) {
 });
 
 console.log("Listening on 8888");
-app.listen(8888);
+server.listen(8888);

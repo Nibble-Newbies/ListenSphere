@@ -15,7 +15,6 @@ import ArtistPage from "./pages/ArtistPage";
 import AuthContext from "./components/authContext";
 import { useState } from "react";
 import ChatApp from "./pages/chat";
-
 function App() {
   const [token, setToken] = useState("");
   const login = (newToken) => {

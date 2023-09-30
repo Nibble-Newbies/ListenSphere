@@ -1,12 +1,27 @@
 // Message.js
-import React from 'react';
+import React from "react";
 
 const Message = ({ message }) => {
+  
+  console.log(message);
   return (
-    <div className={`message ${message.sender}`}>
-      <p>{message.text}</p>
-      <span className="timestamp">{message.timestamp.toLocaleString()}</span>
-    </div>
+    <>
+      {message?.sender === "other" ? (
+        <div className={`message ${message.sender}`}>
+          <p>{message.text}</p>
+          <span className="timestamp">
+            {message.timestamp.toLocaleString()}
+          </span>
+        </div>
+      ) : (
+        <div className={`message ${message.sender}`}>
+        <p>{message.text}</p>
+        <span className="timestamp">
+          {message.timestamp.toLocaleString()}
+        </span>
+      </div>
+      )}
+    </>
   );
 };
 
