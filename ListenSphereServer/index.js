@@ -13,8 +13,6 @@ import { Song } from "./models/song.js";
 import cron from "node-cron";
 import { FriendRequest } from "./models/friendRequest.js";
 
-// schedule cron to run every 1 minute
-
 cron.schedule("*/1 * * * *", async () => {
   console.log("running a task every minute");
 });

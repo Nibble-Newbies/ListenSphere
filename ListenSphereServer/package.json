@@ -23,11 +23,13 @@
     "express-session": "^1.17.3",
     "mongodb": "^6.1.0",
     "mongoose": "^7.5.3",
+    "node-cron": "^3.0.2",
     "nodemon": "^3.0.1",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "passport-spotify": "^2.0.0",
     "querystring": "^0.2.1",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "vary": "^1.1.2"
   }
 }
