@@ -2,14 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import Navigation from "../components/Navigation";
 import ProfileCard from "../components/ProfileCard";
 import AuthContext from "../components/authContext";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
 function Review() {
   const [data, setData] = useState([]);
-  const {token}= useContext(AuthContext);
-  const {user}=useSelector(state=>state.user);
-  const [loading,setLoading]=useState(true)
-  let goGetRequests=async (token,id)=>{
+  const { token } = useContext(AuthContext);
+  const { user } = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(true);
+  let goGetRequests = async (token, id) => {
     let config = {
       method: "GET",
       headers: {
@@ -22,44 +22,47 @@ function Review() {
       config
     );
     return response.data;
-  }
+  };
 
   useEffect(() => {
     if (token && user) {
       let id = user._id;
       goGetRequests(token, id)
         .then((data) => {
-
-          let formattedData = data?.data?.map((sender)=>{
+          let formattedData = data?.data?.map((sender) => {
             return {
-              name:sender.senderUserId.name,
-              sender_id:sender.senderUserId._id,
-              connect_id:sender._id,
-              bio:sender.senderUserId.bio,
-              pic:sender.senderUserId.pic,
-            }
-          })
+              name: sender.senderUserId.name,
+              sender_id: sender.senderUserId._id,
+              connect_id: sender._id,
+              bio: sender.senderUserId.bio,
+              pic: sender.senderUserId.pic,
+            };
+          });
           setData(formattedData);
           setLoading(false);
         })
         .catch((err) => {
           console.log(err);
-          setLoading(false)
+          setLoading(false);
         });
     }
-  }, [token,user?._id]);
+  }, [token, user?._id]);
 
   return (
     <div className="w-full flex flex-col items-center p-4 pt-0">
-      {data.length===0 ? (
+      {data.length === 0 ? (
         <p className="text-2xl">No Reviews Yet</p>
       ) : (
         <>
-          {
-            data?.map((user)=>{
-              return <ProfileCard tab="review" setData={setData} data={user}></ProfileCard>
-            })
-          }
+          {data?.map((user) => {
+            return (
+              <ProfileCard
+                tab="review"
+                setData={setData}
+                data={user}
+              ></ProfileCard>
+            );
+          })}
         </>
       )}
     </div>
@@ -68,10 +71,10 @@ function Review() {
 
 function Connect() {
   const [data, setData] = useState([]);
-  const {token}= useContext(AuthContext)
-  const {user}= useSelector(state=>state.user)
-  
-  let goGetConnections=async (token,id)=>{
+  const { token } = useContext(AuthContext);
+  const { user } = useSelector((state) => state.user);
+
+  let goGetConnections = async (token, id) => {
     let config = {
       method: "GET",
       headers: {
@@ -83,27 +86,29 @@ function Connect() {
       `http://localhost:8888/getFriends/${user._id}`,
       config
     );
-    return response.data;      
-  }
+    return response.data;
+  };
 
   useEffect(() => {
     if (token) {
       let id = user._id;
       goGetConnections(token, id)
         .then((data) => {
-          let formattedData = data?.data?.map((connection)=>{
+          const st=data?.data?.map((connection) => {
             return {
-              name:connection.senderUserId?.name,
-              id:connection._id,
-              bio:connection?.senderUserId?.bio,
-              socials:{
-                instagram:connection?.senderUserId?.socials?.instagram,
-                twitter:connection?.senderUserId?.socials?.twitter
+              name: connection.name,
+              id: connection._id,
+              bio: connection.bio,
+              socials: {
+                instagram: connection.socials.instagram,
+                twitter: connection.socials.twitter,
               },
-              pic:connection?.senderUserId?.pic,
-            }
-          })
-          setData(formattedData);
+
+              pic: connection.pic,
+            };
+          });
+
+          setData(st);
         })
         .catch((err) => {
           console.log(err);
@@ -111,18 +116,17 @@ function Connect() {
     }
   }, []);
 
-
   return (
     <div className="w-full flex flex-col items-center p-4 pt-0">
       {!data ? (
         <p className="text-2xl">No Connections Yet</p>
       ) : (
         <>
-          {
-            data?.map((val,index)=>{
-              return <ProfileCard tab="connect" key={index} data={val}></ProfileCard>
-            })
-          }
+          {data?.map((val, index) => {
+            return (
+              <ProfileCard tab="connect" key={index} data={val}></ProfileCard>
+            );
+          })}
         </>
       )}
     </div>

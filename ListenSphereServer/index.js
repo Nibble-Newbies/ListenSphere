@@ -452,14 +452,28 @@ app.get(
 
 app.get("/getFriends/:id", validateSpotifyToken, async function (req, res) {
   let id = req.params.id;
-  try {
+  try { 
     let getAllRequests = await FriendRequest.find({
       $or: [
         { receiverUserId: id, status: "accepted" },
         { senderUserId: id, status: "accepted" }
       ]
-    }).populate("senderUserId");
-    res.json({ message: "data", data: getAllRequests });
+    })
+
+    let getAllFriends = getAllRequests.map((fr) => {
+      if(fr.senderUserId == id) {
+        return fr.receiverUserId
+      } else {
+        return fr.senderUserId
+      }
+    })
+
+    getAllFriends = await User.find({
+      _id: { $in: getAllFriends }
+    })
+
+
+    res.json({ message: "data", data: getAllFriends });
   } catch (err) {
     res.json({ message: "error", error: err });
   }
